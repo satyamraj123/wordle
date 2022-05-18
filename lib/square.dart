@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
+import 'package:wordle/SquareModel.dart';
 
 class Square extends StatefulWidget {
-  final Color color;
-  final String alphabet;
-  final bool isUsed;
-  Square({required this.alphabet, required this.color, required this.isUsed});
+  final SquareModel squaremodel;
+  final Function getCurrentRow;
+  Square({required this.squaremodel, required this.getCurrentRow});
 
   @override
   State<Square> createState() => _SquareState();
@@ -22,39 +22,46 @@ class _SquareState extends State<Square> {
             width: 2,
           )),
       padding: EdgeInsets.all(5),
-      child: widget.isUsed
+      margin: EdgeInsets.all(5),
+      height: 50,
+      width: 50,
+      child: widget.squaremodel.isUsed
           ? Container(
-              decoration: BoxDecoration(color: widget.color),
-              height: 100,
-              width: 100,
+              decoration: BoxDecoration(color: widget.squaremodel.color),
+              height: 50,
+              width: 50,
               alignment: Alignment.center,
               child: Text(
-                widget.alphabet,
+                widget.squaremodel.alphabet,
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
-                    fontSize: 30),
+                    fontSize: 20),
               ),
             )
           : Container(
               decoration: BoxDecoration(color: Colors.white),
-              height: 100,
-              width: 100,
+              height: 50,
+              width: 50,
               alignment: Alignment.center,
               child: Container(
-                width: 30,
+                width: 20,
                 child: TextField(
                   maxLength: 1,
                   textCapitalization: TextCapitalization.characters,
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 30),
+                      fontSize: 20),
                   decoration: InputDecoration(
                       border: InputBorder.none, counterText: ""),
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
                   ], // Only numbers can be entered),
+                  onChanged: (value) {
+                    widget.getCurrentRow(value, widget.squaremodel.row,
+                        widget.squaremodel.column);
+                  },
                 ),
               )),
     );

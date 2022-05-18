@@ -4,12 +4,15 @@ import 'package:wordle/data.dart';
 import 'dart:math' as math;
 
 class Game {
-  String currentPlayableWord =
-      playableWords[math.Random().nextInt(100) % playableWords.length];
+  String currentPlayableWord = "bake";
+  //playableWords[math.Random().nextInt(100) % playableWords.length];
   List<List<SquareModel>> grid = [];
-
+int gameState=0;
+//0 means playing
+//1 means game won
+//-1 means game lost
   Game() {
-    resetGrid();
+    resetGame();
   }
 
   List<List<SquareModel>> getGrid() {
@@ -25,24 +28,68 @@ class Game {
     this.grid[row][col].color = color;
     this.grid[row][col].isUsed = true;
   }
-
-  void evaluateRow(String rowWord, int currentRow) {
+  int getGameState(){
+    return this.gameState;
+  }
+void setGameState(int val){
+  this.gameState=val;
+}
+  bool modifyRow(List<String> rowWord, int currentRow) {
+    if (currentRow >= 6) {
+      //game over
+      return false;
+    }
+    if(rowWord.isEmpty||rowWord.contains("")){
+      print("enter all words");
+      return false;
+    }
     for (int i = 0; i < 4; i++) {
-      if (currentPlayableWord[i] == rowWord[i]) {
-        modifyGrid(currentRow, i, rowWord[i], Colors.green);
-      } else if (currentPlayableWord.contains(rowWord[i])) {
-        modifyGrid(currentRow, i, rowWord[i], Colors.yellow);
+      if (currentPlayableWord[i].toLowerCase() == rowWord[i].toLowerCase()) {
+        modifyGrid(currentRow, i, rowWord[i].toUpperCase(), Colors.green);
+      } else if (currentPlayableWord.toLowerCase().contains(rowWord[i].toLowerCase())) {
+        modifyGrid(currentRow, i, rowWord[i].toUpperCase(), Colors.yellow);
       } else {
-        modifyGrid(currentRow, i, rowWord[i], Colors.grey);
+        modifyGrid(currentRow, i, rowWord[i].toUpperCase(), Colors.grey);
       }
     }
+    return true;
   }
 
-  void resetGrid() {
+void evaluateRow(List<String> rowWord, int currentRow){
+  if(currentRow>=6){
+    setGameState(0);
+    return;
+  }
+  for(int i=0;i<4;i++){
+  if (currentPlayableWord[i].toLowerCase() != rowWord[i].toLowerCase()) {
+    setGameState(0);
+    if(currentRow==5) setGameState(-1);
+    return;
+  }
+}
+setGameState(1);
+setGridToUsed();
+}
+
+void setGridToUsed(){
+   for (int i = 0; i < 6; i++) {
+      for (int j = 0; j < 4; j++) {
+      this.grid[i][j].isUsed=true;
+      }
+    }
+}
+  void resetGame() {
+    setGameState(0);
+    this.grid.clear();
     for (int i = 0; i < 6; i++) {
       List<SquareModel> temp = [];
       for (int j = 0; j < 4; j++) {
-        temp.add(SquareModel(alphabet: "", color: Colors.white, isUsed: false,row: i, column: j));
+        temp.add(SquareModel(
+            alphabet: "",
+            color: Colors.white,
+            isUsed: false,
+            row: i,
+            column: j));
       }
       this.grid.add(temp);
     }
