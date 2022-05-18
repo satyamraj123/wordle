@@ -14,17 +14,14 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Column(
         children: [
-          Row(children: [Square(
+
+          ListView.builder(itemBuilder: (ctx,i){
+            return Square(
             alphabet: "A",
             color: Colors.blue,
             isUsed: true,
-          ),
-          Square(
-            alphabet: "A",
-            color: Colors.blue,
-            isUsed: false,
-          )],),
-          
+          );
+          })
         ],
       ),
     );
