@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:wordle/GameModel.dart';
+import 'package:wordle/HowToPlay.dart';
 import 'package:wordle/SquareModel.dart';
 import 'package:wordle/square.dart';
 import 'package:wordle/wordleLogo.dart';
@@ -99,7 +100,12 @@ class _HomePageState extends State<HomePage> {
                     },
                     child: Text("Submit")),
                 Spacer(),
-                TextButton(onPressed: () {}, child: Text("How to play?")),
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (ctx) => HowToPlay()));
+                    },
+                    child: Text("How to play?")),
               ],
             ),
           ),

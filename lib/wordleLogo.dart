@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wordle/common.dart';
 
 class WordleLogo extends StatelessWidget {
   @override
@@ -10,12 +11,12 @@ class WordleLogo extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            WordleBoxes("W"),
-            WordleBoxes("O"),
-            WordleBoxes("R"),
-            WordleBoxes("D"),
-            WordleBoxes("L"),
-            WordleBoxes("E"),
+            WordleBoxes("W",Colors.green),
+            WordleBoxes("O",Colors.green),
+            WordleBoxes("R",Colors.green),
+            WordleBoxes("D",Colors.green),
+            WordleBoxes("L",Colors.green),
+            WordleBoxes("E",Colors.green),
           ]),
           Text(
             "A DAILY WORD GAME",
@@ -27,17 +28,5 @@ class WordleLogo extends StatelessWidget {
     );
   }
 
-  Widget WordleBoxes(String text) {
-    return Container(
-      decoration: BoxDecoration(color: Colors.green),
-      height: 50,
-      width: 50,
-      alignment: Alignment.center,
-      child: Text(
-        text,
-        style: TextStyle(
-            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
-      ),
-    );
-  }
+ 
 }

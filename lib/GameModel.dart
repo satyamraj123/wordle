@@ -47,7 +47,7 @@ void setGameState(int val){
       if (currentPlayableWord[i].toLowerCase() == rowWord[i].toLowerCase()) {
         modifyGrid(currentRow, i, rowWord[i].toUpperCase(), Colors.green);
       } else if (currentPlayableWord.toLowerCase().contains(rowWord[i].toLowerCase())) {
-        modifyGrid(currentRow, i, rowWord[i].toUpperCase(), Colors.yellow);
+        modifyGrid(currentRow, i, rowWord[i].toUpperCase(), Color(0xffFFD700));
       } else {
         modifyGrid(currentRow, i, rowWord[i].toUpperCase(), Colors.grey);
       }
