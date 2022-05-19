@@ -16,11 +16,10 @@ class _SquareState extends State<Square> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
           border: Border.all(
-            color: Colors.black,
-            width: 2,
-          )),
+        color: Colors.black,
+        width: 2,
+      )),
       padding: EdgeInsets.all(5),
       margin: EdgeInsets.all(5),
       height: 50,
@@ -45,7 +44,7 @@ class _SquareState extends State<Square> {
               width: 50,
               alignment: Alignment.center,
               child: Container(
-                width: 20,
+                width: 25,
                 child: TextField(
                   maxLength: 1,
                   textCapitalization: TextCapitalization.characters,

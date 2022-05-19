@@ -30,44 +30,51 @@ class _HomePageState extends State<HomePage> {
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                SizedBox(
+                  height: 20,
+                ),
                 WordleLogo(),
+                SizedBox(
+                  height: 20,
+                ),
                 Container(
-                  height: 600,
+                  height: 470,
                   width: MediaQuery.of(context).size.width,
-                  child: Center(
-                    child: ListView.builder(
-                        itemCount: 6,
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemBuilder: (ctx, i) {
-                          return Center(
-                            child: Container(
-                              height: 70,
-                              width: MediaQuery.of(context).size.width,
-                              child: Center(
-                                child: ListView.builder(
-                                    itemCount: 4,
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (ctx, j) {
-                                      return Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Square(
-                                            squaremodel: game.getGrid()[i][j],
-                                            getCurrentRow: getCurrentRow,
-                                          ),
-                                        ],
-                                      );
-                                    }),
-                              ),
+                  alignment: Alignment.topCenter,
+                  child: ListView.builder(
+                      itemCount: 6,
+                      scrollDirection: Axis.vertical,
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      itemBuilder: (ctx, i) {
+                        return Center(
+                          child: Container(
+                            height: 70,
+                            width: MediaQuery.of(context).size.width,
+                            child: Center(
+                              child: ListView.builder(
+                                  itemCount: 4,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (ctx, j) {
+                                    return Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Square(
+                                          squaremodel: game.getGrid()[i][j],
+                                          getCurrentRow: getCurrentRow,
+                                        ),
+                                      ],
+                                    );
+                                  }),
                             ),
-                          );
-                        }),
-                  ),
+                          ),
+                        );
+                      }),
                 ),
                 game.getGameState() == 1 ? Text("You Won") : Container(),
                 game.getGameState() == -1 ? Text("You Lost") : Container(),
@@ -91,6 +98,8 @@ class _HomePageState extends State<HomePage> {
                       }
                     },
                     child: Text("Submit")),
+                Spacer(),
+                TextButton(onPressed: () {}, child: Text("How to play?")),
               ],
             ),
           ),
