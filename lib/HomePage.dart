@@ -5,7 +5,7 @@ import 'package:wordle/HowToPlay.dart';
 import 'package:wordle/SquareModel.dart';
 import 'package:wordle/square.dart';
 import 'package:wordle/wordleLogo.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
@@ -30,102 +30,104 @@ class _HomePageState extends State<HomePage> {
           height: MediaQuery.of(context).size.height,
           padding: EdgeInsets.all(10),
           child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                WordleLogo(),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  height: 450,
-                  width: MediaQuery.of(context).size.width,
-                  alignment: Alignment.topCenter,
-                  child: ListView.builder(
-                      itemCount: 6,
-                      scrollDirection: Axis.vertical,
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      padding: EdgeInsets.zero,
-                      itemBuilder: (ctx, i) {
-                        return Center(
-                          child: Container(
-                            height: 70,
-                            width: MediaQuery.of(context).size.width,
-                            child: Center(
-                              child: ListView.builder(
-                                  itemCount: 4,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (ctx, j) {
-                                    return Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Square(
-                                          squaremodel: game.getGrid()[i][j],
-                                          getCurrentRow: getCurrentRow,
-                                        ),
-                                      ],
-                                    );
-                                  }),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  WordleLogo(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    height: 450,
+                    width: MediaQuery.of(context).size.width,
+                    alignment: Alignment.topCenter,
+                    child: ListView.builder(
+                        itemCount: 6,
+                        scrollDirection: Axis.vertical,
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        padding: EdgeInsets.zero,
+                        itemBuilder: (ctx, i) {
+                          return Center(
+                            child: Container(
+                              height: 70,
+                              width: MediaQuery.of(context).size.width,
+                              child: Center(
+                                child: ListView.builder(
+                                    itemCount: 4,
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (ctx, j) {
+                                      return Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Square(
+                                            squaremodel: game.getGrid()[i][j],
+                                            getCurrentRow: getCurrentRow,
+                                          ),
+                                        ],
+                                      );
+                                    }),
+                              ),
                             ),
-                          ),
-                        );
-                      }),
-                ),
-                game.getGameState() == 1
-                    ? Text(
-                        "CONGRATULATIONS YOU WON",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      )
-                    : Container(),
-                game.getGameState() == -1 ? Text1() : Container(),
-                SizedBox(
-                  height: 10,
-                ),
-                game.getGameState() != 0
-                    ? ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.red)),
-                        onPressed: () {
-                          currentRow = 0;
-                          rowWord = ["", "", "", ""];
-                          game.resetGame();
-                          setState(() {});
-                        },
-                        child: Text("Reset"),
-                      )
-                    : Container(),
-                game.getGameState() == 0
-                    ? ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.green)),
-                        onPressed: () {
-                          if (game.modifyRow(rowWord, currentRow)) {
-                            game.evaluateRow(rowWord, currentRow);
-                            currentRow++;
+                          );
+                        }),
+                  ),
+                  game.getGameState() == 1
+                      ? Text(
+                          "CONGRATULATIONS YOU WON",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        )
+                      : Container(),
+                  game.getGameState() == -1 ? Text1() : Container(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  game.getGameState() != 0
+                      ? ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.red)),
+                          onPressed: () {
+                            currentRow = 0;
                             rowWord = ["", "", "", ""];
+                            game.resetGame();
                             setState(() {});
-                          }
-                        },
-                        child: Text("Submit"))
-                    : Container(),
-                Spacer(),
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (ctx) => HowToPlay()));
-                    },
-                    child: Text("How to play?")),
-              ],
+                          },
+                          child: Text("Reset"),
+                        )
+                      : Container(),
+                  game.getGameState() == 0
+                      ? ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.green)),
+                          onPressed: () {
+                            if (game.modifyRow(rowWord, currentRow)) {
+                              game.evaluateRow(rowWord, currentRow);
+                              currentRow++;
+                              rowWord = ["", "", "", ""];
+                              setState(() {});
+                            }
+                          },
+                          child: Text("Submit"))
+                      : Container(),
+                 SizedBox(height: 20),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (ctx) => HowToPlay()));
+                      },
+                      child: Text("How to play?")),
+                ],
+              ),
             ),
           ),
         ),
