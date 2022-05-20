@@ -20,15 +20,15 @@ class _SquareState extends State<Square> {
         color: Colors.black,
         width: 2,
       )),
-      padding: EdgeInsets.all(5),
       margin: EdgeInsets.all(5),
       height: 50,
       width: 50,
       child: widget.squaremodel.isUsed
           ? Container(
+            margin:  EdgeInsets.all(5),
               decoration: BoxDecoration(color: widget.squaremodel.color),
-              height: 50,
-              width: 50,
+              height: 40,
+              width: 40,
               alignment: Alignment.center,
               child: Text(
                 widget.squaremodel.alphabet,
@@ -38,31 +38,37 @@ class _SquareState extends State<Square> {
                     fontSize: 20),
               ),
             )
-          : Container(
-              decoration: BoxDecoration(color: Colors.white),
-              height: 50,
-              width: 50,
-              alignment: Alignment.center,
-              child: Container(
-                width: 25,
-                child: TextField(
-                  maxLength: 1,
-                  textCapitalization: TextCapitalization.characters,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20),
-                  decoration: InputDecoration(
-                      border: InputBorder.none, counterText: ""),
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
-                  ], // Only numbers can be entered),
-                  onChanged: (value) {
-                    widget.getCurrentRow(value, widget.squaremodel.row,
-                        widget.squaremodel.column);
-                  },
-                ),
-              )),
+          : Center(
+            child: Container(
+                decoration: BoxDecoration(color: Colors.white),
+                height: 50,
+                width: 50,
+                alignment: Alignment.center,
+                child: Center(
+                  child: Container(
+                    height: 50,
+                    width: 25,
+                    child: TextField(
+                      maxLength: 1,
+                      textCapitalization: TextCapitalization.characters,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                      decoration: InputDecoration(
+                          border: InputBorder.none, counterText: ""),
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                      ], // Only numbers can be entered),
+                      onChanged: (value) {
+                        widget.getCurrentRow(value, widget.squaremodel.row,
+                            widget.squaremodel.column);
+                      },
+                    ),
+                  ),
+                )),
+          ),
     );
   }
 }
