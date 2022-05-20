@@ -28,6 +28,7 @@ class _HomePageState extends State<HomePage> {
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
+          padding: EdgeInsets.all(10),
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,7 +42,7 @@ class _HomePageState extends State<HomePage> {
                   height: 20,
                 ),
                 Container(
-                  height: 470,
+                  height: 450,
                   width: MediaQuery.of(context).size.width,
                   alignment: Alignment.topCenter,
                   child: ListView.builder(
@@ -77,28 +78,46 @@ class _HomePageState extends State<HomePage> {
                         );
                       }),
                 ),
-                game.getGameState() == 1 ? Text("You Won") : Container(),
-                game.getGameState() == -1 ? Text("You Lost") : Container(),
+                game.getGameState() == 1
+                    ? Text(
+                        "CONGRATULATIONS YOU WON",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      )
+                    : Container(),
+                game.getGameState() == -1 ? Text1() : Container(),
+                SizedBox(
+                  height: 10,
+                ),
                 game.getGameState() != 0
-                    ? TextButton(
+                    ? ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.red)),
                         onPressed: () {
                           currentRow = 0;
                           rowWord = ["", "", "", ""];
                           game.resetGame();
                           setState(() {});
                         },
-                        child: Text("Reset"))
+                        child: Text("Reset"),
+                      )
                     : Container(),
-                TextButton(
-                    onPressed: () {
-                      if (game.modifyRow(rowWord, currentRow)) {
-                        game.evaluateRow(rowWord, currentRow);
-                        currentRow++;
-                        rowWord = ["", "", "", ""];
-                        setState(() {});
-                      }
-                    },
-                    child: Text("Submit")),
+                game.getGameState() == 0
+                    ? ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.green)),
+                        onPressed: () {
+                          if (game.modifyRow(rowWord, currentRow)) {
+                            game.evaluateRow(rowWord, currentRow);
+                            currentRow++;
+                            rowWord = ["", "", "", ""];
+                            setState(() {});
+                          }
+                        },
+                        child: Text("Submit"))
+                    : Container(),
                 Spacer(),
                 TextButton(
                     onPressed: () {
@@ -114,6 +133,33 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget Text1() => Center(
+        child: Column(
+          children: [
+            RichText(
+              text: TextSpan(
+                style: const TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                ),
+                children: <TextSpan>[
+                  TextSpan(text: 'The correct word was '),
+                  TextSpan(
+                      text: game.currentPlayableWord.toUpperCase(),
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ),
+            Text(
+              "Better luck next time!",
+              style: const TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+              ),
+            )
+          ],
+        ),
+      );
   void getCurrentRow(String val, int row, int column) {
     rowWord[column] = val;
     setState(() {});
