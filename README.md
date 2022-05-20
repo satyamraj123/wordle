@@ -9,3 +9,5 @@ Please open this URL in chrome browser for best experience-
 WEB App Link- https://matchr-8e94e.web.app 
 
 Github Link- https://github.com/satyamraj123/wordle
+
+<img width="208" alt="Screenshot 2022-05-20 174335" src="https://user-images.githubusercontent.com/57063364/169525903-1d95f9a7-d3ea-4570-92d0-e0607c2242a5.png">
