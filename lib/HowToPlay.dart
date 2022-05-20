@@ -9,107 +9,118 @@ class HowToPlay extends StatelessWidget {
         padding: EdgeInsets.all(10),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          SizedBox(
-            height: 50,
-          ),
-          Text1(),
-          SizedBox(
-            height: 10,
-          ),
-          Text(
-            "Each guess must be a valid five-letter word. Hit the enter button to submit.",
-            style: const TextStyle(
-              fontSize: 20,
-              color: Colors.black,
+        child: SingleChildScrollView(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            SizedBox(
+              height: 50,
             ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Text(
-            "After each guess, the color of the tiles will change to show how close your guess was to the word.",
-            style: const TextStyle(
-              fontSize: 20,
-              color: Colors.black,
+            Text1(),
+            SizedBox(
+              height: 10,
             ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Divider(
-            color: Colors.black,
-            height: 20,
-            thickness: 2,
-            indent: 0,
-            endIndent: 0,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Text(
-            "Examples",
-            style: const TextStyle(
-                fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Container(
-            width: 220,
-            height: 50,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  WordleBoxes("W", Colors.green),
-                  WordleBoxes("E", Colors.black),
-                  WordleBoxes("A", Colors.black),
-                  WordleBoxes("R", Colors.black),
-                ]),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Text2(),
-          SizedBox(
-            height: 10,
-          ),
-          Container(
-            width: 220,
-            height: 50,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  WordleBoxes("P", Colors.black),
-                  WordleBoxes("I", Color(0xffFFD700)),
-                  WordleBoxes("L", Colors.black),
-                  WordleBoxes("L", Colors.black),
-                ]),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Text3(),
-          SizedBox(
-            height: 10,
-          ),
-          Container(
-            width: 220,
-            height: 50,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  WordleBoxes("C", Colors.black),
-                  WordleBoxes("A", Colors.black),
-                  WordleBoxes("K", Colors.grey),
-                  WordleBoxes("E", Colors.black),
-                ]),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Text4(),
-        ]),
+            Text(
+              "Each guess must be a valid five-letter word. Hit the enter button to submit.",
+              style: const TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              "After each guess, the color of the tiles will change to show how close your guess was to the word.",
+              style: const TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Divider(
+              color: Colors.black,
+              height: 20,
+              thickness: 2,
+              indent: 0,
+              endIndent: 0,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              "Examples",
+              style: const TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              width: 220,
+              height: 50,
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    WordleBoxes("W", Colors.green),
+                    WordleBoxes("E", Colors.black),
+                    WordleBoxes("A", Colors.black),
+                    WordleBoxes("R", Colors.black),
+                  ]),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text2(),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              width: 220,
+              height: 50,
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    WordleBoxes("P", Colors.black),
+                    WordleBoxes("I", Color(0xffFFD700)),
+                    WordleBoxes("L", Colors.black),
+                    WordleBoxes("L", Colors.black),
+                  ]),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text3(),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              width: 220,
+              height: 50,
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    WordleBoxes("C", Colors.black),
+                    WordleBoxes("A", Colors.black),
+                    WordleBoxes("K", Colors.grey),
+                    WordleBoxes("E", Colors.black),
+                  ]),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text4(),
+            SizedBox(height: 20),
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("Go back")),
+          ]),
+        ),
       ),
     );
   }
